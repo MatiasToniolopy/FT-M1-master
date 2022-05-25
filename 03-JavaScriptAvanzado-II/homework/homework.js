@@ -19,6 +19,13 @@ function counter() {
   otroContador()      // 2
   otroContador()      // 3
    */
+
+  //Inicializo el contador en 1
+  var c = 1;
+  //Retorno la función que retorna el contador sumamdo 1
+  return function () {
+    return c++
+  }
 }
 
 function cacheFunction(cb) {
@@ -41,6 +48,18 @@ function cacheFunction(cb) {
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) 
 
   */
+ //Creo el ob donde se guarda el cache y sus propiedades
+ var cache = {}
+ return function(arg){
+   //Compruebo si el arg esta en el cache, si esta lo retorno
+   if (cache.hasOwnProperty(arg)){
+    return cache[arg];
+    //Sino le paso el valor del cb(arg) al cache y lo retorno
+   }else {
+    cache[arg] = cb(arg)
+    return cache[arg];
+   }
+ }
 }
 
 // Bind
@@ -67,8 +86,9 @@ function getNombre() {
   Usando el método bind() guardar, en las dos variables declaradas a continuación, dos funciones que actúen como getNombre pero retornen el nombre del instructor y del alumno, respectivamente.
 */
 
-let getNombreInstructor;
-let getNombreAlumno;
+//Asigno la funcion a bindear (getNombre) y como arg le paso el objeto
+let getNombreInstructor = getNombre.bind(instructor)
+let getNombreAlumno = getNombre.bind(alumno)
 
 /*
   Ejercicio 4
@@ -80,9 +100,13 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
   return delimitadorIzquierda + cadena + delimitadorDerecha;
 }
 
-let textoAsteriscos;
-let textoGuiones;
-let textoUnderscore;
+//Le asigno la funcion a bindear (crearcadena)
+//Le paso el objeto, en este caso this, porque la func no lo tiene
+//Y por ultimo el arg1 y arg3
+//Porque lo que tiene q retornar es la cadena, lo demas queda fijo
+let textoAsteriscos = crearCadena.bind(this, '*', '*')
+let textoGuiones = crearCadena.bind(this, '-', '-')
+let textoUnderscore = crearCadena.bind(this, '_', '_')
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
