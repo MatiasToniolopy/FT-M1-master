@@ -41,10 +41,10 @@ LinkedList.prototype.add = function(data) {
   }
   //Mientras haya un valor actual, habrá un next aunque sea null
   while (current.next) {
-    //Y defino el valor actual como el siguiente
+    //Y defino el valor actual como el siguiente, para agregar el nuevo nodo
     current = current.next;
   }
-  //Y el valor actual sera igual al nuevo nodo para no pisar el anterior
+  //Y el valor del siguiente sera igual al nuevo nodo para no pisar el anterior
   current.next = node;
   //Se lo agrego sumando en 1
   this._length++;
