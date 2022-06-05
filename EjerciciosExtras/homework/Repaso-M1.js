@@ -16,7 +16,9 @@ const {
 
 var countArray = function(array) {
     // Tu código aca:
-    
+    let newarray = array.flat(Infinity);
+    let sum = newarray.reduce((a,b) => a+b)
+    return sum
 }
 
 
@@ -39,6 +41,13 @@ var countArray = function(array) {
 
 var countProps = function(obj) {
     // Tu código aca:
+    let total =  Object.keys(obj).length
+    for (const prop in obj) {
+      if(typeof obj[prop] === 'object' &&  !Array.isArray(obj[prop])) {
+       total +=  countProps(obj[prop])
+      }
+    }
+    return total
 
 }
 
@@ -53,6 +62,17 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
+    let current = this.head
+    let sumar = 0
+    while(current){
+        let intento = Number(current.value)
+        if(Number.isNaN(intento)){
+            current.value = 'Kiricocho'
+            sumar +=1
+        }
+       current = current.next
+    }
+    return sumar
 
 }
 
@@ -67,6 +87,19 @@ LinkedList.prototype.changeNotNumbers = function(){
 
 var mergeQueues = function(queueOne, queueTwo) {
     // Tu código aca:
+    let newQueue = new Queue()
+    while(queueOne.size() || queueTwo.size()){
+        if (queueOne.size()) {
+            newQueue.enqueue(queueOne.dequeue())
+        }
+        if (queueTwo.size() ) {
+            let value = queueTwo.dequeue()
+            newQueue.enqueue(value)
+        }
+       
+            
+    }
+    return newQueue
 
 }
 
@@ -82,6 +115,9 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
+    return function(num){
+        return num * multiplier
+    }
 
 }
 
@@ -89,6 +125,14 @@ var closureMult = function(multiplier) {
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
 BinarySearchTree.prototype.sum = function() {
     // Tu código aca:
+    let suma = this.value
+    if(this.left) {
+        suma = suma + this.left.sum()
+    }
+    if(this.right){
+        suma += this.right.sum()
+    }
+    return suma
 
 }
 
